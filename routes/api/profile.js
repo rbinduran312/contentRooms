@@ -42,12 +42,7 @@ router.get('/me', auth, async (req, res) => {
 router.post(
   '/',
   [
-    auth,
-    [
-      check('bio', 'Bio is required')
-        .not()
-        .isEmpty()
-    ]
+    auth
   ],
   async (req, res) => {
     const errors = validationResult(req);

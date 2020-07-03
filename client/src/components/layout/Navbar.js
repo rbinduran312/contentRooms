@@ -7,21 +7,21 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link to='/posts'>Discover</Link>
+        <Link to='/profiles'>Discover</Link>
       </li>
       <li>
-        <Link to='/profiles'>Search</Link>
+        <Link to='/Events'>Events</Link>
       </li>
       <li>
-        <Link to='/create'>Create</Link>
+        <Link to='/profiles'>Rooms</Link>
       </li>
       <li>
-        <Link to='/messaging'>Messages</Link>
+        <Link to='/messaging'>Inbox</Link>
       </li>
       <li>
         <Link to='/dashboard'>
           <i className='fas fa-user' />{' '}
-          <span className='hide-sm'>Dashboard</span>
+          <span className='hide-sm'>Me</span>
         </Link>
       </li>
     </ul>
@@ -30,7 +30,7 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link to='/profiles'>Rooms</Link>
       </li>
       <li>
         <Link to='/register'>Register</Link>
