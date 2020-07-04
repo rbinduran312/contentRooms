@@ -67,6 +67,20 @@ router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
   }
 });
 
+// @route    GET api/posts/user/:id
+// @desc     Get posts by userID
+// @access   Private
+router.get('/user/:id', async (req, res) => {
+  try {
+    const posts = await Post.find({user: req.params.id}).sort({ date: -1 });
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).send('Server Error');
+  }
+});
+
 // @route    DELETE api/posts/:id
 // @desc     Delete a post
 // @access   Private

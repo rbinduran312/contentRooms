@@ -19,7 +19,6 @@ const { deleteUser } = require('./../../util/cognito')
 // @desc     Get current users profile
 // @access   Private
 router.get('/me', auth, async (req, res) => {
-  console.log("inside me 12")
   try {
     const profile = await Profile.findOne({
       user: req.user.id
@@ -92,10 +91,9 @@ router.post(
 // @route    GET api/profile
 // @desc     Get all profiles
 // @access   Public
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const profiles = await Profile.find({user: {$ne: req.user.id}}).populate('user', ['name', 'avatar']);
-
+    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
     res.json(profiles);
   } catch (err) {
     console.error(err.message);

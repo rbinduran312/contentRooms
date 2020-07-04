@@ -18,6 +18,8 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
+  
+
   return (
     <Fragment>
       <h1 className="large text-primary">Dashboard</h1>
@@ -37,6 +39,10 @@ const Dashboard = ({
             <span className='hide-sm'>Logout</span>
             </a>
           </div>
+          <Link to={`/profile`}>
+          <i className='fas fa-user-circle text-primary' /> My Profile
+          </Link>
+
         </Fragment>
     </Fragment>
   );

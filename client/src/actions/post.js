@@ -121,7 +121,8 @@ export const getPost = id => async dispatch => {
 // Get User's posts
 export const getUserPosts = id => async dispatch => {
   try {
-    const res = await api.get(`/api/posts/user/${id}`);
+
+    const res = await api.get(`/posts/user/${id}`);
 
     dispatch({
       type: GET_USER_POSTS,

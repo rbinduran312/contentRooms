@@ -5,14 +5,13 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import { getUserPosts } from '../../actions/post';
 
-const ProfilePosts = ({getUserPosts, match , post: {loading, posts}}) => {
+const ProfilePosts = ({getUserPosts, match , post: {posts}}) => {
   useEffect(() => {
     getUserPosts(match.params.id);
+
   }, [getUserPosts,match.params.id]);
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <Fragment>
       <div className='posts'>
         {posts.map(post => (

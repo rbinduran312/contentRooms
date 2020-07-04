@@ -13,7 +13,7 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
         <Link to='/Events'>Events</Link>
       </li>
       <li>
-        <Link to='/profiles'>Rooms</Link>
+        <Link to='/Rooms'>Rooms</Link>
       </li>
       <li>
         <Link to='/messaging'>Inbox</Link>

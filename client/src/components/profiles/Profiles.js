@@ -25,15 +25,15 @@ const Profiles = ({ getProfiles, addAsFriend, profile: { profiles, loading }, us
         <Spinner />
       ) : (
           <Fragment>
-            <h1 className='large text-primary'>Developers</h1>
+            <h1 className='large text-primary'>Creators</h1>
             <p className='lead'>
               <i className='fab fa-connectdevelop' /> Browse and connect with
-            developers
+            creators
           </p>
             <div className='profiles'>
               {profiles.length > 0 ? (
                 profiles.map(profile => (
-                  <ProfileItem key={profile._id} profile={profile} addFriend={addFriend} isFriend={checkIfFriend(profile.friends)} />
+                  <ProfileItem key={profile._id} profile={profile}  />
                 ))
               ) : (
                   <h4>No profiles found...</h4>
