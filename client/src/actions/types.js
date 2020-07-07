@@ -29,3 +29,10 @@ export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const ADD_FRIEND = 'ADD_FRIEND';
 export const ADD_FRIEND_SUCCESS = 'ADD_FRIEND_SUCCESS';
 export const ADD_FRIEND_FAIL = 'ADD_FRIEND_FAIL';
+
+export const GET_DRAFTS = 'GET_DRAFTS';
+export const GET_USER_DRAFTS = 'GET_USER_DRAFTS';
+export const DRAFT_ERROR = 'DRAFT_ERROR';
+export const DELETE_DRAFT = 'DELETE_DRAFT';
+export const ADD_DRAFT = 'ADD_DRAFT';
+export const GET_DRAFT = 'GET_DRAFT';

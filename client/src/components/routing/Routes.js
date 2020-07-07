@@ -13,6 +13,10 @@ import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import PostForm from '../posts/PostForm';
 import Chat from '../messaging/Chat';
+import DraftForm from '../drafts/DraftForm';
+import Drafts from '../drafts/Drafts';
+import DraftTypeChoice from '../drafts/DraftTypeChoice';
+
 
 const Routes = props => {
   return (
@@ -27,8 +31,10 @@ const Routes = props => {
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
         <PrivateRoute exact path="/posts" component={Posts} />
+        <PrivateRoute exact path="/drafts" component={Drafts} />
         <PrivateRoute exact path="/posts/:id" component={Post} />
-        <PrivateRoute exact path='/create' component={PostForm} />
+        <PrivateRoute exact path='/create' component={DraftTypeChoice} />
+        <PrivateRoute exact path='/createPost' component={PostForm} />
         <PrivateRoute exact path='/messaging' component={Chat} />
         <Route component={NotFound} />
       </Switch>

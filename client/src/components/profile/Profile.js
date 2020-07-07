@@ -7,6 +7,7 @@ import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import { getProfileById } from '../../actions/profile';
 import ProfilePosts from '../posts/ProfilePosts';
+import ProfileDrafts from '../drafts/ProfileDrafts';
 
 
 const Profile = ({

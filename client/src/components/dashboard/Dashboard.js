@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import { logout } from '../../actions/auth';
+import ProfileDrafts from '../drafts/ProfileDrafts';
 
 
 const Dashboard = ({
@@ -39,9 +40,14 @@ const Dashboard = ({
             <span className='hide-sm'>Logout</span>
             </a>
           </div>
-          <Link to={`/profile`}>
-          <i className='fas fa-user-circle text-primary' /> My Profile
-          </Link>
+            <Link to={`/profile`}>
+              <i className='fas fa-user-circle text-primary' /> My Profile
+            </Link>
+
+          { user.creator === true && (
+              <ProfileDrafts user = {user} />
+          )}
+          
 
         </Fragment>
     </Fragment>

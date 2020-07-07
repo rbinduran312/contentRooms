@@ -33,6 +33,7 @@ router.post(
 
     try {
       let user = await User.findOne({ email });
+      let creator = false;
 
       if (user) {
         return res
@@ -61,6 +62,7 @@ router.post(
         email,
         avatar,
         cogid: cog_user.userSub,
+        creator
       });
 
       await user.save();

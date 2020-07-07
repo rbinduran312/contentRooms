@@ -10,10 +10,10 @@ const Navbar = ({ auth: { isAuthenticated, loading } }) => {
         <Link to='/profiles'>Discover</Link>
       </li>
       <li>
-        <Link to='/Events'>Events</Link>
+        <Link to='/events'>Events</Link>
       </li>
       <li>
-        <Link to='/Rooms'>Rooms</Link>
+        <Link to='/rooms'>Rooms</Link>
       </li>
       <li>
         <Link to='/messaging'>Inbox</Link>

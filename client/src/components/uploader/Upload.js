@@ -46,8 +46,6 @@ class Upload extends Component {
     const promises = [];
     this.state.files.forEach(file => {
 
-      file.name = 
-
       promises.push(this.sendRequest(file));
     });
     try {
