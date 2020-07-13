@@ -144,8 +144,8 @@ router.delete('/', auth, async (req, res) => {
   }
 });
 
-// @route    GET api/profile
-// @desc     Get all profiles
+// @route    POST api/profile/add-friend
+// @desc     Add friend
 // @access   Public
 router.post('/add-friend', auth, async(req, res) => {
 

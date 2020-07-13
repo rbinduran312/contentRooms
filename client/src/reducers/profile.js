@@ -4,8 +4,6 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
-  NO_REPOS,
   ADD_FRIEND,
   ADD_FRIEND_SUCCESS,
   ADD_FRIEND_FAIL
@@ -14,7 +12,6 @@ import {
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
   loading: true,
   error: {}
 };
@@ -47,20 +44,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: null,
-        repos: []
       };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
-        loading: false
-      };
-    case NO_REPOS:
-      return {
-        ...state,
-        repos: []
-      };
-
     case ADD_FRIEND:
       return {
         ...state,

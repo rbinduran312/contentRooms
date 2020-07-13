@@ -2,14 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ProfileItem = ({
-  profile: {
+const RoomItem = ({
+  room: {
     user: { _id, name, avatar },
     status,
     location
-  },
-  addFriend,
-  isFriend
+  }
 }) => {
   return (
     <div className='profile bg-light'>
@@ -17,17 +15,16 @@ const ProfileItem = ({
       <div>
         <h2>{name}</h2>
         <p className='my-1'>{location && <span>{location}</span>}</p>
-        <Link to={`/profile/${_id}`} className='btn btn-primary'>
-          View Profile
+        <Link to={`/room/${_id}`} className='btn btn-primary'>
+          View Room
         </Link>
-        {!isFriend && <Link to='' className='btn btn-primary' onClick={(e) => addFriend(e, _id, name)}>Add as friend</Link>}
       </div>
     </div >
   );
 };
 
-ProfileItem.propTypes = {
-  profile: PropTypes.object.isRequired
+RoomItem.propTypes = {
+  room: PropTypes.object.isRequired
 };
 
-export default ProfileItem;
+export default RoomItem;

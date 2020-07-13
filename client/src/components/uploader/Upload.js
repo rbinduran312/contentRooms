@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Dropzone from "./Dropzone";
-import "./Upload.css";
 import Progress from "./Progress";
 import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoIdToken } from 'amazon-cognito-identity-js';
 import axios from 'axios';

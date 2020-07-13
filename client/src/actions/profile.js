@@ -8,8 +8,6 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
-  GET_REPOS,
-  NO_REPOS,
   ADD_FRIEND,
   ADD_FRIEND_FAIL,
   ADD_FRIEND_SUCCESS
@@ -68,21 +66,6 @@ export const getProfileById = userId => async dispatch => {
   }
 };
 
-// Get Github repos
-export const getGithubRepos = username => async dispatch => {
-  try {
-    const res = await api.get(`/profile/github/${username}`);
-
-    dispatch({
-      type: GET_REPOS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: NO_REPOS
-    });
-  }
-};
 
 // Create or update profile
 export const createProfile = (
@@ -136,6 +119,7 @@ export const deleteAccount = () => async dispatch => {
   }
 };
 
+// Add as a Friend
 export const addAsFriend = (myId, friendId, friendName) => async dispatch => {
   try {
     await api.post('/profile/add-friend', { userId: friendId });

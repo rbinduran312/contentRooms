@@ -21,7 +21,7 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/rooms" />;
+    return <Redirect to="/events" />;
   }
 
   return (
