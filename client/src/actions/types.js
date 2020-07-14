@@ -40,3 +40,7 @@ export const GET_ROOMS = 'GET_ROOMS';
 export const ROOM_ERROR = 'ROOM_ERROR';
 export const UPDATE_ROOM = 'UPDATE_ROOM';
 export const CLEAR_ROOM = 'CLEAR_ROOM';
+
+export const GET_ROOM_POSTS = 'GET_ROOM_POSTS';
+
+

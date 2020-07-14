@@ -31,7 +31,9 @@ const RoomSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
       },
-
+    name: {
+        type: String
+    },
     website: {
         type: String
     },

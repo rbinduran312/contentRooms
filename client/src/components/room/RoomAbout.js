@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const RoomAbout = ({
   room: {
     bio,
-    user: { name }
+    name
   }
 }) => (
   <div className='profile-about bg-light p-2'>

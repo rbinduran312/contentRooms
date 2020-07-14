@@ -39,10 +39,10 @@ const Profile = ({
           <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            {auth.isAuthenticated &&
+            {/* {auth.isAuthenticated &&
             auth.loading === false && (
               <ProfilePosts match = {match}/>
-            )}
+            )} */}
           </div>
         </Fragment>
       )}

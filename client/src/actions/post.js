@@ -3,6 +3,7 @@ import { setAlert } from './alert';
 import {
   GET_POSTS,
   GET_USER_POSTS,
+  GET_ROOM_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
@@ -126,6 +127,24 @@ export const getUserPosts = id => async dispatch => {
 
     dispatch({
       type: GET_USER_POSTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get Room's posts
+export const getRoomPosts = roomName => async dispatch => {
+  try {
+
+    const res = await api.get(`/posts/room/${roomName}`);
+
+    dispatch({
+      type: GET_ROOM_POSTS,
       payload: res.data
     });
   } catch (err) {

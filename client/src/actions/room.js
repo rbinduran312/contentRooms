@@ -29,9 +29,9 @@ export const getRooms = () => async dispatch => {
 };
 
 // Get room by ID
-export const getRoomById = userId => async dispatch => {
+export const getRoomById = roomId => async dispatch => {
   try {
-    const res = await api.get(`/rooms/user/${userId}`);
+    const res = await api.get(`/rooms/${roomId}`);
 
     dispatch({
       type: GET_ROOM,

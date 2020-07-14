@@ -1,6 +1,7 @@
 import {
   GET_POSTS,
   GET_USER_POSTS,
+  GET_ROOM_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
@@ -34,6 +35,12 @@ export default function(state = initialState, action) {
         loading: false
       };
     case GET_USER_POSTS:
+      return {
+        ...state,
+        posts: payload,
+        loading: false
+      };
+    case GET_ROOM_POSTS:
       return {
         ...state,
         posts: payload,

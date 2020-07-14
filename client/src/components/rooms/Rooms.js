@@ -5,7 +5,7 @@ import Spinner from '../layout/Spinner';
 import RoomItem from './RoomItem';
 import { getRooms} from '../../actions/room';
 
-const Rooms = ({ getRooms, room: { rooms, loading }, user }) => {
+const Rooms = ({ getRooms, room: { rooms, loading } }) => {
   useEffect(() => {
     getRooms();
   }, [getRooms]);

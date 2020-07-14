@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import RoomTop from './RoomTop';
 import RoomAbout from './RoomAbout';
 import { getRoomById } from '../../actions/room';
-import ProfilePosts from '../posts/ProfilePosts';
+import RoomPosts from '../posts/RoomPosts';
 
 //import RoomPosts from '../posts/RoomPosts';
 //import RoomDrafts from '../drafts/RoomDrafts';
@@ -31,19 +31,19 @@ const Room = ({
           <Link to='/rooms' className='btn btn-light'>
             Back To Rooms
           </Link>
-          {auth.isAuthenticated &&
+          {/* {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === room.user._id && (
               <Link to='/edit-profile' className='btn btn-dark'>
                 Edit Room
               </Link>
-            )}
+            )} */}
           <div className='profile-grid my-1'>
             <RoomTop room={room} />
             <RoomAbout room={room} />
             {auth.isAuthenticated &&
             auth.loading === false && (
-              <ProfilePosts match = {match}/>
+              <RoomPosts match = {match}/>
             )}
           </div>
         </Fragment>

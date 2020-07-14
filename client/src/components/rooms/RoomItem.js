@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 
 const RoomItem = ({
   room: {
-    user: { _id, name, avatar },
+    // user: { _id, name, avatar },
+    name,
+    avatar,
     status,
-    location
+    location,
+    _id
   }
 }) => {
   return (
@@ -15,7 +18,7 @@ const RoomItem = ({
       <div>
         <h2>{name}</h2>
         <p className='my-1'>{location && <span>{location}</span>}</p>
-        <Link to={`/room/${_id}`} className='btn btn-primary'>
+        <Link to={`/room/${name}`} className='btn btn-primary'>
           View Room
         </Link>
       </div>

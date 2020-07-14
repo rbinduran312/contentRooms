@@ -27,7 +27,7 @@ const PostItem = ({
   removeLike,
   deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date },
+  post: { _id, text, name, avatar, user, likes, comments, date, room },
   showActions,
 }) => {
   const type = text.split('.').pop();
