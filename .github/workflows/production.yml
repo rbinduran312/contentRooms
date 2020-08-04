@@ -16,8 +16,8 @@ jobs:
 
       - name: Build
         run: |
-          cd client
-          yarn build
+          yarn install
+          yarn start
 
       - name: Deploy production
         if: github.ref == 'refs/heads/master'
