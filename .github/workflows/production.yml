@@ -1,0 +1,28 @@
+name: Production Build
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Build
+        run: |
+          yarn install
+          yarn start
+
+      - name: Deploy production
+        if: github.ref == 'refs/heads/master'
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.PRODUCTION_AWS_S3_BUCKET }}
