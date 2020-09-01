@@ -95,6 +95,20 @@ router.get('/room/:roomName', async (req, res) => {
   }
 });
 
+// @route    GET api/posts/events/:eventName
+// @desc     Get posts by roomName
+// @access   Private
+router.get('/event/:eventName', async (req, res) => {
+  try {
+    const posts = await Post.find({event: req.params.eventName}).sort({ date: -1 });
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).send('Server Error');
+  }
+});
+
 
 // @route    DELETE api/posts/:id
 // @desc     Delete a post

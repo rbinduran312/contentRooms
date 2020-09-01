@@ -39,7 +39,7 @@ const PostItem = ({
       <div className='video-wrapper'>
         <ReactJWPlayer
           playerId={_id}
-          playerScript='https://cdn.jwplayer.com/libraries/Xysw2DQ5.js'
+          playerScript='https://cdn.jwplayer.com/libraries/EAro1zer.js'
           playlist={playlist}
         />
       </div>

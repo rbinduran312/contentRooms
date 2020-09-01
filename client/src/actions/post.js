@@ -4,6 +4,7 @@ import {
   GET_POSTS,
   GET_USER_POSTS,
   GET_ROOM_POSTS,
+  GET_EVENT_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
@@ -145,6 +146,24 @@ export const getRoomPosts = roomName => async dispatch => {
 
     dispatch({
       type: GET_ROOM_POSTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Get Event's posts
+export const getEventPosts = eventName => async dispatch => {
+  try {
+
+    const res = await api.get(`/posts/event/${eventName}`);
+
+    dispatch({
+      type: GET_EVENT_POSTS,
       payload: res.data
     });
   } catch (err) {

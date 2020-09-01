@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addDraft } from '../../actions/draft';
+import { addDraft, getDraft } from '../../actions/draft';
 import Upload from '../uploader/Upload';
 //import Upload from '../uploader/Upload';
 
-const DraftForm = ({ addDraft }) => {
+const initialState = {
+  text: '',
+  title: '',
+  description: '',
+  dash: '',
+  room: ''
+}
+
+const DraftForm = ({ 
+  draft: {draft,loading},
+  addDraft,
+  getDraft,
+  history
+}) => {
   const [text, setText] = useState('');
+
+  const [formData, setFormData] = useState(initialState);
+
+
   return (
     <div className='draft-form'>
       <div className='bg-primary p'>
@@ -31,7 +48,6 @@ const DraftForm = ({ addDraft }) => {
         />
         <input type='submit' className='btn btn-dark my-1' value='Submit' />
       </form>
-      <Upload />
     </div>
   );
 };

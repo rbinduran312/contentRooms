@@ -3,6 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
+import { GoogleLogin } from 'react-google-login'
+
+const clientId = '1091737462556-jptqdp0b0iqg1u20s7l2mkuod6hcq54r.apps.googleusercontent.com'
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -17,8 +20,18 @@ const Login = ({ login, isAuthenticated }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+    login(email, password, null);
   };
+
+  const onGoogleSuccess = (response) => {
+    login(email, password, response);
+    console.log(response)
+  }
+
+  const onGoogleError = (response) => {
+    console.error("google sign in err")
+    console.log(response)
+  }
 
   if (isAuthenticated) {
     return <Redirect to="/rooms" />;
@@ -52,6 +65,16 @@ const Login = ({ login, isAuthenticated }) => {
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Login" />
+        <GoogleLogin
+          onSuccess={res => {
+            onGoogleSuccess(res)
+          }
+          }
+          onFailure={onGoogleError}
+          clientId={clientId}
+          className="google_signin_button"
+        >
+        </GoogleLogin>
       </form>
       <p className="my-1">
         Don't have an account? <Link to="/register">Sign Up</Link>

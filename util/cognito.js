@@ -17,7 +17,8 @@ const signupUser = (email, password) => {
     global.fetch = require('node-fetch')
   }
 
-  return new Promise((resolve) => userPool.signUp(email, password, attributeList, null, (err, result) => {
+  return new Promise((resolve) => userPool.signUp(email, password, attributeList,
+    null, (err, result) => {
     if (err) {
       return resolve([null, err.message || JSON.stringify(err)])
     }
@@ -131,6 +132,19 @@ const tokenValidator = async (token) => {
     }
   }))
 }
+const resendConfirm = (email) => new Promise((resolve, reject) => {
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+    Username: email,
+    Pool: userPool,
+  })
+  cognitoUser.resendConfirmationCode(function (err, result) {
+    if (err) {
+      alert(err);
+      return reject(err)
+    }
+    return resolve(result)
+  })
+})
 
 const deleteUser = (token) => new Promise((resolve, reject) => {
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
@@ -164,4 +178,5 @@ module.exports = {
   authenticateUser,
   tokenValidator,
   deleteUser,
+  resendConfirm,
 }

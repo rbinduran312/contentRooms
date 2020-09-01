@@ -31,6 +31,9 @@ const DraftSchema = new Schema({
   dash: {
     type: String,
   },
+  room: {
+    type: String,
+  }
 
 });
 

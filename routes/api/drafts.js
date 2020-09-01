@@ -62,6 +62,8 @@ router.get('/', auth,  async (req, res) => {
   router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
     try {
       const draft = await Draft.findById(req.params.id);
+
+      console.log(auth);
   
       res.json(draft);
     } catch (err) {

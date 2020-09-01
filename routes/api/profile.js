@@ -20,14 +20,15 @@ const { deleteUser } = require('./../../util/cognito')
 // @access   Private
 router.get('/me', auth, async (req, res) => {
   try {
+    console.log('/profile/me')
+    console.log(req.user)
     const profile = await Profile.findOne({
       user: req.user.id
-    }).populate('user', ['name', 'avatar']);
+    }).populate('user', ['name', 'avatar', 'friends', 'friendRequestSent']);
 
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
     }
-
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -91,9 +92,9 @@ router.post(
 // @route    GET api/profile
 // @desc     Get all profiles
 // @access   Public
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+    const profiles = await Profile.find({ "user": { $nin: [req.user._id] } }).populate('user', ['name', 'avatar']);
     res.json(profiles);
   } catch (err) {
     console.error(err.message);
@@ -138,54 +139,6 @@ router.delete('/', auth, async (req, res) => {
     await deleteUser(req.cognito_tokens).catch(() => undefined)
 
     res.json({ msg: 'User deleted' });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-});
-
-// @route    POST api/profile/add-friend
-// @desc     Add friend
-// @access   Public
-router.post('/add-friend', auth, async(req, res) => {
-
-  try {
-    const profiles = await Profile.find({
-      'user': {
-        $in: [
-          mongoose.Types.ObjectId(req.user.id),
-          mongoose.Types.ObjectId(req.body.userId),
-        ]
-      }
-    })
-    if (profiles && profiles.length && profiles.length === 2) {
-      profiles.forEach(profile => {
-
-        if (profile.user.toString() === req.user._id.toString()) {
-          if (profile.friends && profile.friends.indexOf(req.body.userId) < 0) {
-            profile.friends.push(req.body.userId)
-          } else {
-            profile.friends = [req.body.userId]
-          }
-        } else {
-          if (profile.friends && profile.friends.indexOf(req.user._id) < 0) {
-            profile.friends.push(req.user._id)
-          } else {
-            profile.friends = [req.user._id]
-          }
-        }
-      });
-
-      var bulk = Profile.collection.initializeUnorderedBulkOp()
-      profiles.forEach(profile => {
-        bulk.find({ _id: profile._id }).upsert().update({ $set: profile });
-      })
-      await bulk.execute();
-
-      res.json({profiles});
-    }else{
-      res.status(400).send('Invalid ids');
-    }
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

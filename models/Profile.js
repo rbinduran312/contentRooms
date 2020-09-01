@@ -32,9 +32,12 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  friends:[{
+  events:[{
+    type: String,
+  }],
+  events_purchased: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'event'
   }]
 });
 

@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProfileItem from '../profiles/ProfileItem';
+import { Link } from 'react-router-dom';
+import RoomProfile from './RoomProfiles';
+import RoomProfiles from './RoomProfiles';
+
 
 const RoomTop = ({
   room: {
     location,
     website,
     social,
-    // user: { name, avatar },
     name,
-    avatar
+    avatar,
+    creators
   }
 }) => {
   return (
@@ -16,9 +21,16 @@ const RoomTop = ({
       <img className='round-img my-1' src={avatar} alt='' />
       <h1 className='large'>{name}</h1>
       <p>{location && <span>{location}</span>}</p>
+
+      <div className="horizontal">
+        {creators.map((creator) => (
+          <RoomProfiles creator={creator} />
+        ))}
+      </div>
+
       <div className='icons my-1'>
         {website && (
-          <a href={website} target='_blank' rel='noopener noreferrer'>
+          <a target='_blank' href={website} rel='noopener noreferrer'>
             <i className='fas fa-globe fa-2x' />
           </a>
         )}

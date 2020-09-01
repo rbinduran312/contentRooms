@@ -17,8 +17,8 @@ app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/drafts', require('./routes/api/drafts'));
 app.use('/api/rooms', require('./routes/api/rooms'));
-
-
+app.use('/api/events', require('./routes/api/events'));
+app.use('/api/payment', require('./routes/api/payment'));
 
 
 app.use(function (err, req, res, next) {
@@ -38,7 +38,6 @@ app.use(function (err, req, res, next) {
 });
 
 // Serve static assets in production
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 // if (process.env.NODE_ENV === 'production') {
   // Set static folder
   app.use(express.static('client/build'));
@@ -48,6 +47,6 @@ console.log('process.env.NODE_ENV', process.env.NODE_ENV);
   });
 // }
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

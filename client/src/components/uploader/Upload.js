@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import Dropzone from "./Dropzone";
 import Progress from "./Progress";
-import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoIdToken } from 'amazon-cognito-identity-js';
+// import { CognitoUserPool, CognitoUser, AuthenticationDetails, CognitoIdToken } from 'amazon-cognito-identity-js';
 import axios from 'axios';
 import jwt_decode from "jwt-decode"
 import { stringLiteral } from "@babel/types";
-const UserPoolId = 'us-east-1_Nyqobq2qH';
-const ClientId = '34524dvl31gse4v09bnejt0499';
+// const UserPoolId = 'us-east-1_Nyqobq2qH';
+// const ClientId = '34524dvl31gse4v09bnejt0499';
 const ApiGatewayUrl = 'https://i36ip33cnh.execute-api.us-east-1.amazonaws.com/production/';
 
 
-const userPool = new CognitoUserPool({
-  UserPoolId: UserPoolId,
-  ClientId: ClientId,
-});
+// const userPool = new CognitoUserPool({
+//   UserPoolId: UserPoolId,
+//   ClientId: ClientId,
+// });
 
 
 class Upload extends Component {
