@@ -777,3 +777,11 @@ button:disabled {
 .google_signin_button {
 	height: auto;
 }
+
+.msg-success {
+	color: var(--success-color);
+}
+
+.msg-danger {
+	color: var(--danger-color);
+}

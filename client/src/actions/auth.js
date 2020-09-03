@@ -8,7 +8,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
-	CLEAR_PROFILE,
+	CLEAR_PROFILE, REGISTER_CONFIRMING,
 } from './types';
 import setAuthToken from './../utils/setAuthToken';
 
@@ -41,7 +41,11 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 		const res = await api.post('/users', body);
 		console.log(res)
 		if (res.data.code === "redirect") {
-			dispatch(setAlert(res.data.msg, 'primary', 30000))
+			// dispatch(setAlert(res.data.msg, 'primary', 30000))
+			dispatch({
+				type: REGISTER_CONFIRMING,
+				payload: res.data,
+			});
 		}
 
 		// dispatch({
@@ -93,6 +97,23 @@ export const login = (email, password, google_token) => async (dispatch) => {
 			type: LOGIN_FAIL,
 		});
 	}
+};
+
+// CheckLiveUsername / Clear Profile
+export const checkLiveUsername = async (name) => {
+	try {
+		let res = null
+		const body = JSON.stringify({ name });
+		res = await api.post('/auth/check_name', body);
+		return res.data
+
+	} catch (err) {
+		const errors = err.response.data.errors;
+		console.log(errors)
+		if (errors) {
+		}
+	}
+	return null
 };
 
 // Logout / Clear Profile

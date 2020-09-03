@@ -19,8 +19,14 @@ const Login = ({ login, isAuthenticated }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
+    console.log("Login")
     e.preventDefault();
     login(email, password, null);
+  };
+
+  const onForgetPassword = async (e) => {
+    console.log("Forgot password")
+    e.preventDefault();
   };
 
   const onGoogleSuccess = (response) => {
@@ -34,7 +40,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   if (isAuthenticated) {
-    return <Redirect to="/rooms" />;
+      return <Redirect to="/rooms" />;
   }
 
   return (
@@ -64,11 +70,12 @@ const Login = ({ login, isAuthenticated }) => {
             minLength="6"
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
+        <button type="submit" className="btn btn-primary" onClick={onSubmit}>Login</button>
+        <button type="submit" className="btn btn-primary" onClick={onForgetPassword}>Forget Password</button>
         <GoogleLogin
           onSuccess={res => {
             onGoogleSuccess(res)
-          }
+            }
           }
           onFailure={onGoogleError}
           clientId={clientId}

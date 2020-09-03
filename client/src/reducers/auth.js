@@ -1,5 +1,6 @@
 import {
 	REGISTER_SUCCESS,
+	REGISTER_CONFIRMING,
 	//REGISTER_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
@@ -26,6 +27,13 @@ export default function (state = initialState, action) {
 				isAuthenticated: true,
 				loading: false,
 				user: payload,
+			};
+		case REGISTER_CONFIRMING:
+			return {
+				...state,
+				...payload,
+				isConfirming: true,
+				loading: false,
 			};
 		case REGISTER_SUCCESS:
 			return {

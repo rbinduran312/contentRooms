@@ -129,4 +129,20 @@ router.post('/google_auth', async (req, res) => {
   }
 });
 
+router.post('/check_name', async (req, res) => {
+  const { name } = req.body;
+  console.log("/auth/check_name " + name)
+  let user = await User.findOne({ name });
+  console.log(user)
+  try {
+    if (user == null) {
+      return res.json({"available": true})
+    }
+  } catch (e) {
+    return res.json({"available": true})
+  }
+  return res.json({"available": false})
+});
+
+
 module.exports = router;
