@@ -7,7 +7,7 @@ const {OAuth2Client} = require('google-auth-library');
 const normalize = require('normalize-url');
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
-const { authenticateUser, resendConfirm } = require('./../../util/cognito')
+const { authenticateUser, resendConfirm, forgotPassword, confirmPassword } = require('./../../util/cognito')
 const { generateAccessToken } = require('./../../util/jwt_token')
 const gravatar = require('gravatar');
 
@@ -142,6 +142,48 @@ router.post('/check_name', async (req, res) => {
     return res.json({"available": true})
   }
   return res.json({"available": false})
+});
+
+router.post('/forgot_password',  [
+    check('email', 'Please include a valid email').isEmail()
+  ]
+  ,
+  async (req, res) => {
+  const { email } = req.body;
+  console.log("/auth/forgot_password " + email)
+  let user = await User.findOne({ email });
+  console.log(user)
+  try {
+    if (user == null) {
+      return res.json({"code": "User does not exist", "case": 0})
+    }
+    const pass_res = await forgotPassword(email)
+    return res.json({"code": "sent", "data": pass_res})
+  } catch (e) {
+    console.log(e)
+    return res.json({"code": "User does not exist", "case": 1})
+  }
+});
+
+router.post('/reset_password',  [
+    check('email', 'Please include a valid email').isEmail()
+  ]
+  ,
+  async (req, res) => {
+    const { email, verify_code, password } = req.body;
+    console.log("/auth/reset_password " + email)
+    let user = await User.findOne({ email });
+    console.log(user)
+    try {
+      if (user == null) {
+        return res.json({"code": "User does not exist", "case": 0})
+      }
+      const pass_res = await confirmPassword(email, verify_code, password)
+      return res.json({"code": "reset", "data": pass_res})
+    } catch (e) {
+      console.log(e)
+      return res.json({"code": "User does not exist", "case": 1})
+    }
 });
 
 

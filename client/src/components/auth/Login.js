@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
@@ -13,6 +13,7 @@ const Login = ({ login, isAuthenticated }) => {
     password: ''
   });
 
+  const history = useHistory()
   const { email, password } = formData;
 
   const onChange = (e) =>
@@ -26,7 +27,8 @@ const Login = ({ login, isAuthenticated }) => {
 
   const onForgetPassword = async (e) => {
     console.log("Forgot password")
-    e.preventDefault();
+    let path = `forgot_password`;
+    history.push(path);
   };
 
   const onGoogleSuccess = (response) => {

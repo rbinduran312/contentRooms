@@ -8,7 +8,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
-	CLEAR_PROFILE, REGISTER_CONFIRMING,
+	CLEAR_PROFILE,
 } from './types';
 import setAuthToken from './../utils/setAuthToken';
 
@@ -40,14 +40,12 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 	try {
 		const res = await api.post('/users', body);
 		console.log(res)
+
 		if (res.data.code === "redirect") {
-			// dispatch(setAlert(res.data.msg, 'primary', 30000))
-			dispatch({
-				type: REGISTER_CONFIRMING,
-				payload: res.data,
-			});
+			return res.data
 		}
 
+		return {code:"err", message:"Unknown"}
 		// dispatch({
 		// 	type: REGISTER_SUCCESS,
 		// 	payload: res.data,
@@ -55,15 +53,15 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 		// dispatch(loadUser());
 	} catch (err) {
 		const errors = err.response.data.errors;
-
 		if (errors) {
 			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger', 10000)));
 		}
-
 		dispatch({
 			type: REGISTER_FAIL,
 		});
+		return {code:"err", message:err.response.data.errors}
 	}
+
 };
 
 // Login User
@@ -113,7 +111,39 @@ export const checkLiveUsername = async (name) => {
 		if (errors) {
 		}
 	}
-	return null
+	return {available: false}
+};
+
+// Forgot password
+export const forgot_password = async (email) => {
+	try {
+		let res = null
+		const body = JSON.stringify(email);
+		console.log("Forgot_password - API")
+		res = await api.post('/auth/forgot_password', body);
+		console.log(res.data)
+		return res.data
+
+	} catch (err) {
+		console.log(err)
+		return {code: "err"}
+	}
+
+};
+
+// reset password
+export const reset_password = async ({verification_code, email, password1}) => {
+	try {
+		let res = null
+		const body = JSON.stringify({email: email, verify_code: verification_code, password: password1});
+		console.log("Reset password - API")
+		res = await api.post('/auth/reset_password', body);
+		console.log(res.data)
+		return res.data
+	} catch (err) {
+		console.log(err)
+		return {code: "err"}
+	}
 };
 
 // Logout / Clear Profile

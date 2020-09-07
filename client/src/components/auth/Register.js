@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register, checkLiveUsername } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ setAlert, register, isConfirming }) => {
+const Register = ({ setAlert, register }) => {
+  const [sent, setSendState] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -41,7 +42,16 @@ const Register = ({ setAlert, register, isConfirming }) => {
     else if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      register({ name, email, password });
+      const register_state = await register({ name, email, password });
+
+      console.log("register_state ")
+      if (register_state !== undefined) {
+        if (register_state.code === 'redirect') {
+          setSendState("sent_ok")
+        } else {
+          setAlert(register_state.message[0], 'danger', 10000);
+        }
+      }
     }
   };
 
@@ -53,16 +63,12 @@ const Register = ({ setAlert, register, isConfirming }) => {
 
   return (
     <>
-    {isConfirming ? (
+    {(sent === 'sent_ok') ? (
         <Fragment>
           <h1 className="large text-primary">Confirm your account</h1>
           <p className="lead">
             <i className="fas fa-user" /> A verification link has been sent to your email
           </p>
-          {/*<form className="form">*/}
-          {/*  <button type="submit" className="btn btn-primary" onClick={onSendAgain}>Send confirmation email again</button>*/}
-          {/*  <button type="submit" className="btn btn-primary" onClick={onInputAgain}>Input information again</button>*/}
-          {/*</form>*/}
         </Fragment>
       ) : (
         <Fragment>
@@ -80,11 +86,12 @@ const Register = ({ setAlert, register, isConfirming }) => {
                 onChange={onChange}
                 onBlur={onBlurName}
               />
-              {name_available ? (
+              {name_available && name !== '' && (
                 <div className="msg-success">
                   Your name is available to use
                 </div>
-              ) : (
+              )}
+              {!name_available && name !== '' && (
                 <div className="msg-danger">
                   Your name is not available to use
                 </div>
@@ -111,11 +118,12 @@ const Register = ({ setAlert, register, isConfirming }) => {
                 value={password}
                 onChange={onChange}
               />
-              {password_available ? (
+              {password_available && password !== '' && (
                 <div className="msg-success">
                   You can use this password
                 </div>
-              ) : (
+              )}
+              {!password_available && password !== '' && (
                 <div className="msg-danger">
                   Password must contain at least 8 characters, special, number, lower & upper cases.
                 </div>
@@ -129,11 +137,12 @@ const Register = ({ setAlert, register, isConfirming }) => {
                 value={password2}
                 onChange={onChange}
               />
-              {password2_available ? (
+              {password2_available && password2 !== '' && (
                 <div className="msg-success">
                   You can use this password
                 </div>
-              ) : (
+              )}
+              {!password2_available && password2 !== '' && (
                 <div className="msg-danger">
                   Password must contain at least 8 characters, special, number, lower & upper cases.
                 </div>
@@ -154,11 +163,6 @@ const Register = ({ setAlert, register, isConfirming }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
-  isConfirming: PropTypes.bool
 };
 
-const mapStateToProps = (state) => ({
-  isConfirming: state.auth.isConfirming
-});
-
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(null, { setAlert, register })(Register);

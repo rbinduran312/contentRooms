@@ -1,5 +1,6 @@
 {
-  "mongoURI": "mongodb+srv://chris10:5zSDyKKS238URX@cluster0-friqx.azure.mongodb.net/contentrooms2?retryWrites=true&w=majority",
+  "mongoURI1": "mongodb+srv://chris10:5zSDyKKS238URX@cluster0-friqx.azure.mongodb.net/contentrooms2?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://chris10:5zSDyKKS238URX@cluster0-friqx.azure.mongodb.net/robinsontest?retryWrites=true&w=majority",
   "cognitoClientId": "36rn72tjqsrbfksa0g3qeob320",
   "cognitoPoolId": "us-east-1_DHN4NNnsW",
   "cognitoPoolRegion": "us-east-1",

@@ -1,6 +1,7 @@
 import {
 	REGISTER_SUCCESS,
 	REGISTER_CONFIRMING,
+	EMAIL_CONFIRMING,
 	//REGISTER_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
@@ -28,18 +29,12 @@ export default function (state = initialState, action) {
 				loading: false,
 				user: payload,
 			};
-		case REGISTER_CONFIRMING:
-			return {
-				...state,
-				...payload,
-				isConfirming: true,
-				loading: false,
-			};
 		case REGISTER_SUCCESS:
 			return {
 				...state,
 				...payload,
 				isAuthenticated: true,
+				isConfirming: false,
 				loading: false,
 			};
 		case LOGIN_SUCCESS:
@@ -47,6 +42,7 @@ export default function (state = initialState, action) {
 				...state,
 				...payload,
 				isAuthenticated: true,
+				isConfirming: false,
 				loading: false,
 			};
 		case ACCOUNT_DELETED:

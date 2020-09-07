@@ -19,7 +19,6 @@ const UserSchema = new mongoose.Schema({
   },
   cogid: {
     type: String,
-    unique: true
   },
   creator: {
     type: Boolean,
@@ -38,7 +37,6 @@ const UserSchema = new mongoose.Schema({
   }],
   googleId: {
     type: String,
-    unique: true
   },
 });
 

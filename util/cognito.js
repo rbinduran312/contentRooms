@@ -146,6 +146,45 @@ const resendConfirm = (email) => new Promise((resolve, reject) => {
   })
 })
 
+const forgotPassword = (email) => new Promise((resolve, reject) => {
+  const userData = {
+    Username: email,
+    Pool: userPool
+  }
+
+  if (!global.fetch) {
+    global.fetch = require('node-fetch')
+  }
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
+  cognitoUser.forgotPassword({
+    onSuccess: (result) => {
+      console.log("cognito forgotpassword ==success")
+      console.log(result)
+      return resolve(result)
+    },
+    onFailure: err => reject(err.message || JSON.stringify(err)),
+  })
+})
+
+
+// confirmPassword can be separately built out as follows...
+const confirmPassword = (email, verificationCode, newPassword) =>  new Promise((resolve, reject) => {
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+    Username: email,
+    Pool: userPool
+  });
+
+  if (!global.fetch) {
+    global.fetch = require('node-fetch')
+  }
+  cognitoUser.confirmPassword(verificationCode, newPassword, {
+    onFailure: err => reject(err.message || JSON.stringify(err)),
+    onSuccess(res) {
+      return resolve(res);
+    },
+  });
+})
+
 const deleteUser = (token) => new Promise((resolve, reject) => {
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
     Username: token.email,
@@ -179,4 +218,6 @@ module.exports = {
   tokenValidator,
   deleteUser,
   resendConfirm,
+  forgotPassword,
+  confirmPassword,
 }

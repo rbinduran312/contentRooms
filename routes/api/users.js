@@ -11,7 +11,7 @@ const normalize = require('normalize-url');
 const User = require('../../models/User');
 const Profile = require('../../models/Profile');
 
-const { signupUser, authenticateUser } = require('./../../util/cognito');
+const { signupUser } = require('./../../util/cognito');
 
 // @route    POST api/users
 // @desc     Register user
@@ -33,7 +33,7 @@ router.post(
     }
 
     const { name, email, password } = req.body;
-
+		console.log("register ==", email, password)
     try {
       const avatar = normalize(
         gravatar.url(email, {
@@ -43,7 +43,6 @@ router.post(
         }),
         { forceHttps: true }
       );
-
       const [ cog_user, signup_error ] = await signupUser(email, password)
       if ( signup_error || ! cog_user ) {
 				console.log("user-Register" + String(signup_error))
@@ -52,7 +51,7 @@ router.post(
 					.json({errors: [{msg: String(signup_error)}]})
 			}
       let creator = false;
-
+			console.log("register2 ==", email, password)
       user = new User({
         name,
         email,
@@ -60,7 +59,7 @@ router.post(
         cogid: cog_user.userSub,
         creator
       });
-
+			console.log("register3 ==", email, password)
 			let createdUser = await user.save();
 
 			const profileFields = {
@@ -68,7 +67,7 @@ router.post(
 				website: '',
 				bio: ''
 			};
-
+			console.log("register4 ==", email, password)
 			await Profile.findOneAndUpdate(
         { user: createdUser._id },
         { $set: profileFields },
@@ -88,7 +87,7 @@ router.post(
 			return res.json({"msg": "Please confirm your email.", "code": "redirect"})
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      return res.status(500).json({errors: [{msg:'Server error'}]});
     }
   }
 );
