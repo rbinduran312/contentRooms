@@ -54,7 +54,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 	} catch (err) {
 		const errors = err.response.data.errors;
 		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger', 10000)));
+			// errors.forEach((error) => dispatch(setAlert(error.msg, 'danger', 10000)));
 		}
 		dispatch({
 			type: REGISTER_FAIL,
@@ -88,9 +88,7 @@ export const login = (email, password, google_token) => async (dispatch) => {
 		console.log(errors)
 		if (errors) {
 			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-
 		}
-
 		dispatch({
 			type: LOGIN_FAIL,
 		});

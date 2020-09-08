@@ -58,10 +58,15 @@ router.post(
       if ( error || ! token ) {
         if (error === "User is not confirmed.") {
           await resendConfirm(email)
+          return res
+            .status(400)
+            .json({ errors: [{ msg: String(error + "Verification link will be sent to your email") }] })
         }
-        return res
-          .status(400)
-          .json({ errors: [{ msg: String(error) }] })
+        else {
+          return res
+            .status(400)
+            .json({ errors: [{ msg: String(error) }] })
+        }
       }
       return res.json({ token })
     } catch (err) {

@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  redirectcognitoconfirm:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs12.x
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 303
+      Role: >-
+        arn:aws:iam::414185974901:role/service-role/redirect_cognito_confirm-role-c2iqhw7w
+      Events:
+        Api1:
+          Type: Api
+          Properties:
+            Path: /redirect
+            Method: GET

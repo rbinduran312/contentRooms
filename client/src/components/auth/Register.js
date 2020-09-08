@@ -38,18 +38,27 @@ const Register = ({ setAlert, register }) => {
     e.preventDefault();
     if (!name_available) {
       setAlert('Your name is not available', 'danger');
+    } else if (!email) {
+      setAlert('Your email is not available', 'danger');
     }
     else if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      const register_state = await register({ name, email, password });
-
-      console.log("register_state ")
-      if (register_state !== undefined) {
-        if (register_state.code === 'redirect') {
-          setSendState("sent_ok")
-        } else {
-          setAlert(register_state.message[0], 'danger', 10000);
+      if (!password_available && password !== '')
+        setAlert('Passwords are not available', 'danger');
+      else {
+        const register_state = await register({ name, email, password });
+        console.log("register_state ")
+        if (register_state !== undefined) {
+          if (register_state.code === 'redirect') {
+            setSendState("sent_ok")
+          } else {
+            console.log(register_state)
+            try {
+              setAlert(register_state.message[0].msg, 'danger', 10000);
+            } catch(e) {
+            }
+          }
         }
       }
     }
